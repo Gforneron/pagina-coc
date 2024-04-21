@@ -1,0 +1,60 @@
+<!-- views/coc.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash of Clans Clan Information</title>
+    <link rel="stylesheet" href="/css/coc.css">
+</head>
+<body>
+    <div class="container">
+        <% if (informacionDelClan && informacionDelClan.name) { %>
+            <h1><%= informacionDelClan.name %></h1>
+        <% } %>
+
+        <table id="clanTable">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Rango</th>
+                    <th>Nivel de ayuntamiento</th>
+                    <th>Nivel de experiencia</th>
+                    <th>Liga</th>
+                    <th>trofeos</th>
+                    <th>Trofeos base de constructor</th>
+                    <th>rango clan?</th>
+                    <th>anterior rango clan?</th>
+                    <th>donaciones</th>
+                    <th>donaciones recibidas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (informacionDelClan && informacionDelClan.memberList && Array.isArray(informacionDelClan.memberList) && informacionDelClan.memberList.length > 0) { %>
+                    <% informacionDelClan.memberList.forEach(participante => { %>
+                        <tr>
+                            <td><%= participante.name %></td>
+                            <td><%= participante.role %></td>
+                            <td><%= participante.townHallLevel %></td>
+                            <td><%= participante.expLevel %></td>
+                            <td><%= participante.league && participante.league.name ? participante.league.name : '-' %></td>
+                            <td><%= participante.trophies %></td>
+                            <td><%= participante.builderBaseTrophies %></td>
+                            <td><%= participante.clanRank %></td>
+                            <td><%= participante.previousClanRank %></td>
+                            <td><%= participante.donations %></td>
+                            <td><%= participante.donationsReceived %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="11">No hay participantes disponibles.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="coc.js"></script>
+</body>
+</html>
